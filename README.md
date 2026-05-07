@@ -15,7 +15,7 @@ This project is a ROS2-based control system for a 5DOF robotic arm designed for 
 - Ubuntu
 
 ## How to Run
-colcon build
-source install/setup.bash
-ros2 launch robot_arm_model_moveit demo.launch.py
+colcon build <br>
+source install/setup.bash <br>
+ros2 launch robot_arm_model_moveit demo.launch.py <br>
 ros2 run forward_ki motion_planning.py 
