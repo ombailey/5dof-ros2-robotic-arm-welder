@@ -1,0 +1,21 @@
+# def read_joint_states(self,msg:JointState):
+    #     self.last_position = None
+    #     if self.last_position == msg.position:
+    #         return
+    #     self.last_position = msg.position
+
+    #     # For Motor 6
+    #     msg.position.append(-msg.position[1])
+    #     rad2deg = 180.0/math.pi
+    #     deg2servopos = 4095.0/360.0
+
+    #     # Move Joints to Desired Position
+    #     for id,pos in enumerate(msg.position):  
+    #         pos_deg = pos*rad2deg
+    #         if (id == 0 or id == 2 or id ==3):
+    #             servo_pos = int(-pos_deg * deg2servopos) + 2048
+    #         else:
+    #             servo_pos = int(pos_deg * deg2servopos) + 2048
+    #         servo_pos = max(0,min(4095, servo_pos))
+    #         self.get_logger().info(f"{id+1}: {servo_pos}")
+    #         self.servo.MoveTo(id+1,servo_pos)
