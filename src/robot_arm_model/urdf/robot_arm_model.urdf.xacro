@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <robot
   name="robot_arm_model" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Macros -->
+  <!-- <xacro:include filename="$(find robot_arm_model)/urdf/arm_base_gazebo.xacro" /> -->
+  <xacro:include filename="$(find robot_arm_model)/urdf/arm_model_control.xacro" />
+  <!-- Robot Model -->
   <link
     name="base_link">
     <inertial>
@@ -28,7 +32,7 @@
       <material
         name="">
         <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
     <collision>
@@ -68,7 +72,7 @@
       <material
         name="">
         <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          rgba="1.0 0.0 0.0 1" />
       </material>
     </visual>
     <collision>
@@ -96,8 +100,8 @@
     <limit
       lower="-3.14"
       upper="3.14"
-      effort="0"
-      velocity="0" />
+      effort="3"
+      velocity="4.5" />
   </joint>
   <link
     name="Link_2">
@@ -126,7 +130,7 @@
       <material
         name="">
         <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
     <collision>
@@ -154,8 +158,8 @@
     <limit
       lower="-1.57"
       upper="1.57"
-      effort="0"
-      velocity="0" />
+      effort="3"
+      velocity="4.5" />
   </joint>
   <link
     name="Link_3">
@@ -184,7 +188,7 @@
       <material
         name="">
         <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          rgba="0.0 0.0 1.0 1" />
       </material>
     </visual>
     <collision>
@@ -212,8 +216,8 @@
     <limit
       lower="-3.14"
       upper="3.14"
-      effort="0"
-      velocity="0" />
+      effort="3"
+      velocity="4.5" />
   </joint>
   <link
     name="Link_4">
@@ -242,7 +246,7 @@
       <material
         name="">
         <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
     <collision>
@@ -270,8 +274,8 @@
     <limit
       lower="-3.14"
       upper="3.14"
-      effort="0"
-      velocity="0" />
+      effort="3"
+      velocity="4.5" />
   </joint>
   <link
     name="Link_5">
@@ -300,7 +304,7 @@
       <material
         name="">
         <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
     <collision>
@@ -328,8 +332,8 @@
     <limit
       lower="-1.57"
       upper="1.57"
-      effort="0"
-      velocity="0" />
+      effort="3"
+      velocity="4.5" />
   </joint>
   <link
     name="End_Effector">
@@ -384,4 +388,45 @@
     <axis
       xyz="1 0 0" />
   </joint>
+
+  <ros2_control name="5DofPosition" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+    <joint name="Joint_1">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="Joint_2">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      </joint>
+      <joint name="Joint_3">
+        <command_interface name="position"/>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="Joint_4">
+        <command_interface name="position"/>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="Joint_5">
+        <command_interface name="position"/>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+  </ros2_control>
 </robot>
