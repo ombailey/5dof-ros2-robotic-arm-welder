@@ -1,36 +1,48 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
+from launch.substitutions import Command
+from launch.actions import ExecuteProcess
 from ament_index_python.packages import get_package_share_directory
+
 import os
 
 
 def generate_launch_description():
 
     pkg_path = get_package_share_directory('robot_arm_model')
-
-    urdf_file = os.path.join(pkg_path, 'urdf', 'robot_arm_model.urdf')
-    rviz_config = os.path.join(pkg_path, 'config', 'robot_arm_model_config.rviz')
-
-    with open(urdf_file, 'r') as infp:
-        robot_desc = infp.read()
+    controller_pkg_path = get_package_share_directory("robot_arm_model_moveit")
+    urdf_file = os.path.join(pkg_path, 'urdf', 'robot_arm_model.urdf.xacro')
+    robot_description = Command(['xacro ', urdf_file])
+    controllers_yaml = os.path.join(controller_pkg_path,'config','ros2_controllers.yaml')
 
     return LaunchDescription([
 
         Node(
             package='robot_state_publisher',
             executable='robot_state_publisher',
-            parameters=[{'robot_description': robot_desc}]
+            parameters=[{
+                'robot_description': robot_description,
+                'use_sim_time': False}]
+        ),
+        
+        Node(
+            package='controller_manager',
+            executable='ros2_control_node',
+            parameters=[{'robot_description': robot_description},
+                        controllers_yaml],
+            output='both',
+            remappings=[("~/robot_description", "/robot_description"),
+    ],
         ),
 
-        Node(
-            package='arm_hardware',
-            executable='arm_joint_publisher'
-        ),
-
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            arguments=['-d', rviz_config],
+        ExecuteProcess(
+            cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+            'joint_state_broadcaster'],
+            output='screen'),
+        
+        ExecuteProcess(
+            cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+            'arm_group_controller'],
             output='screen'
-        )
+        ),
     ])

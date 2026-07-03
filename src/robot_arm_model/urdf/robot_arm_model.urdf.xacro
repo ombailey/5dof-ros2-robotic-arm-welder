@@ -389,11 +389,14 @@
       xyz="1 0 0" />
   </joint>
 
-  <ros2_control name="5DofPosition" type="system">
+  <ros2_control name="five_dof_position" type="system">
     <hardware>
-      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+      <!-- <plugin>gz_ros2_control/GazeboSimSystem</plugin> -->
+      <plugin>feetech_ros2_driver/FeetechHardwareInterface</plugin>
+      <param name="usb_port">/dev/ttyACM0</param>
     </hardware>
     <joint name="Joint_1">
+      <param name="id">1</param>
       <command_interface name="position"/>
       <state_interface name="position">
         <param name="initial_value">0.0</param>
@@ -401,6 +404,7 @@
       <state_interface name="velocity"/>
     </joint>
     <joint name="Joint_2">
+      <param name="id">2</param>
       <command_interface name="position"/>
       <state_interface name="position">
         <param name="initial_value">0.0</param>
@@ -408,6 +412,7 @@
       <state_interface name="velocity"/>
       </joint>
       <joint name="Joint_3">
+        <param name="id">3</param>
         <command_interface name="position"/>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
@@ -415,6 +420,7 @@
         <state_interface name="velocity"/>
       </joint>
       <joint name="Joint_4">
+        <param name="id">4</param>
         <command_interface name="position"/>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
@@ -422,6 +428,7 @@
         <state_interface name="velocity"/>
       </joint>
       <joint name="Joint_5">
+        <param name="id">5</param>
         <command_interface name="position"/>
         <state_interface name="position">
           <param name="initial_value">0.0</param>

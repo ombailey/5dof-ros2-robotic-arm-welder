@@ -5,13 +5,13 @@ import launch_ros.actions
 
 def generate_launch_description():
     moveit_config = MoveItConfigsBuilder("robot_arm", package_name="robot_arm_model_moveit").to_moveit_configs()
-    launch_ros.actions.SetParameter(name='use_sim_time', value=True)
-    tutorial_node = Node(
+    launch_ros.actions.SetParameter(name='use_sim_time', value=False)
+    joint_space_node = Node(
         package="arm_moveit_motion_planning",
         executable="joint_space_planning",
         output="screen",
         parameters=[
-            {"use_sim_time": True},
+            {"use_sim_time": False},
             moveit_config.robot_description,
             moveit_config.robot_description_semantic,
             moveit_config.robot_description_kinematics,
@@ -19,4 +19,4 @@ def generate_launch_description():
 
     )
 
-    return LaunchDescription([tutorial_node])
+    return LaunchDescription([joint_space_node])
