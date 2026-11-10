@@ -9,9 +9,14 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
 find_package(rclcpp REQUIRED)
+
 add_executable( joint_space_planning src/joint_space_planning.cpp )
 ament_target_dependencies(joint_space_planning rclcpp std_msgs moveit_ros_planning_interface)
+
+add_executable( cartesian_space_planning src/cartesian_space_planning.cpp ) 
+ament_target_dependencies(cartesian_space_planning rclcpp std_msgs moveit_ros_planning_interface)
+
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
 install(TARGETS joint_space_planning RUNTIME DESTINATION lib/${PROJECT_NAME} )
-
+install(TARGETS cartesian_space_planning RUNTIME DESTINATION lib/${PROJECT_NAME})
 ament_package()

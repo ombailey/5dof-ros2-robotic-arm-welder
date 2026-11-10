@@ -13,8 +13,8 @@ def generate_launch_description():
 
     pkg_path = get_package_share_directory('robot_arm_model')
 
-    urdf_file = os.path.join(pkg_path, 'urdf', 'robot_arm_model.urdf.xacro')
-    rviz_config = os.path.join(pkg_path, 'config', 'robot_arm_model_config.rviz')
+    urdf_file = os.path.join(pkg_path, 'urdf', 'sim_robot_arm_model.urdf.xacro')
+    # rviz_config = os.path.join(pkg_path, 'config', 'robot_arm_model_config.rviz')
 
     workspace_path = os.environ.get('COLCON_PREFIX_PATH') or os.environ.get('AMENT_PREFIX_PATH')
     robot_arm_model_descrip = workspace_path + "/robot_arm_model/share"
